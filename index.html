@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:0}</style>
+<title>صدقة جارية عطيات جاد التايب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one calm column, a large name header, a central tasbeeh dial, then duas and sadaqa ideas as quiet lists */
+:root{
+  --bg:#F6EDF0;
+  --surface:#FDF8FA;
+  --fg:#33192A;
+  --muted:#755668;
+  --accent:#8E3F63;
+  --accent-ink:#FDF8FA;
+  --gold:#85601F;
+  --line:#E3CFD8;
+  --display:'Amiri','Noto Naskh Arabic',serif;
+  --body:'Noto Naskh Arabic','Amiri',serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1D1219;--surface:#291B25;--fg:#F3E6EC;--muted:#BD9FAF;
+    --accent:#E08DB0;--accent-ink:#1D1219;--gold:#D9B26A;--line:#43303C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1D1219;--surface:#291B25;--fg:#F3E6EC;--muted:#BD9FAF;
+  --accent:#E08DB0;--accent-ink:#1D1219;--gold:#D9B26A;--line:#43303C;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:var(--body);font-size:18px;line-height:1.9;
+  padding-inline:16px;padding-block:32px 48px;
+}
+main{max-width:640px;margin-inline:auto;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance}
+header{text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center;padding-block:8px}
+.pre{font-size:1rem;color:var(--gold);letter-spacing:.04em}
+h1{font-size:clamp(2.2rem,9vw,3.2rem);line-height:1.35}
+.sub{color:var(--muted);margin:0;font-size:1.05rem}
+.verse{
+  margin:10px 0 0;padding-block:14px 0;border-top:1px solid var(--line);
+  font-family:var(--display);font-size:1.25rem;line-height:2;max-width:30em;text-wrap:balance;
+}
+h2{font-size:1.6rem;margin-bottom:4px}
+.lead{color:var(--muted);margin:0 0 18px;font-size:1rem}
+
+/* tasbeeh */
+.dial{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px 16px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tab{font:inherit;font-size:.95rem;line-height:1.4;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.phrase{font-family:var(--display);font-size:1.7rem;line-height:1.6;text-align:center;margin:0;min-height:3.2em;display:flex;align-items:center;text-wrap:balance}
+.ring{position:relative;width:min(260px,72vw);aspect-ratio:1;max-width:100%}
+.ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}
+.track{stroke:var(--line)}
+.prog{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .25s ease}
+.tap{
+  position:absolute;inset:16px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--accent);color:var(--accent-ink);font-family:var(--display);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  transition:transform .08s ease;-webkit-tap-highlight-color:transparent;
+}
+.tap:active{transform:scale(.96)}
+.tap .n{font-size:3.4rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.tap .l{font-size:1rem;opacity:.85}
+.stats{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:center;color:var(--muted);font-size:1rem}
+.stats b{color:var(--fg);font-variant-numeric:tabular-nums}
+.reset{font:inherit;font-size:.9rem;background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;padding:4px 8px}
+
+/* lists */
+ul.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.dua{padding-block:16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.dua:last-child{border-bottom:1px solid var(--line)}
+.dua p{margin:0;font-family:var(--display);font-size:1.3rem;line-height:2;min-width:0}
+.copy{font:inherit;font-size:.9rem;line-height:1.4;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--accent);cursor:pointer}
+.copy:hover{border-color:var(--accent)}
+.sada{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
+.sada div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.sada h3{font-family:var(--display);font-size:1.2rem;margin:0 0 2px;color:var(--accent)}
+.sada p{margin:0;font-size:.98rem;color:var(--muted);line-height:1.8}
+.hadith{border-inline-start:3px solid var(--gold);padding-inline-start:14px;margin:0 0 18px;font-family:var(--display);font-size:1.2rem;line-height:2}
+.qcur{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 16px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center}
+.qcur .kind{font-size:.95rem;color:var(--gold)}
+.qcur h3{font-family:var(--display);font-size:2.2rem;line-height:1.4;margin:0}
+.qcur p{margin:0;color:var(--muted);font-size:1rem}
+.qact{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+.btn{font:inherit;font-size:1rem;line-height:1.4;padding:8px 20px;border-radius:999px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;text-decoration:none;display:inline-block}
+.btn.fill{background:var(--accent);color:var(--accent-ink)}
+.sub2{font-family:var(--display);font-size:1.25rem;margin:26px 0 8px}
+.qsug{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px}
+.qsug div{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;min-width:0}
+.qsug b{font-family:var(--display);font-size:1.25rem;color:var(--accent)}
+.qsug span{font-size:.92rem;color:var(--muted);line-height:1.7}
+.qsug .btn{font-size:.9rem;padding:4px 14px}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px;max-height:224px;overflow-y:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:12px;padding:8px}
+.chip{font:inherit;font-size:.85rem;line-height:1.3;padding:4px 2px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;min-width:0;display:flex;flex-direction:column;align-items:center}
+.chip small{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip.done{background:var(--line)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip[aria-pressed="true"] small{color:var(--accent-ink)}
+#qProg{margin:0 0 10px;color:var(--muted);font-size:1rem}
+.idea{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 16px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
+.idea .kind{font-size:.95rem;color:var(--gold)}
+.idea .t{font-family:var(--display);font-size:1.5rem;line-height:1.7;margin:0;text-wrap:balance;min-height:3.4em;display:flex;align-items:center}
+.idea .more{font:inherit;font-size:1rem;line-height:1.4;padding:8px 22px;border-radius:999px;border:none;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:1rem;padding-top:8px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.tap,.prog{transition:none}}
+</style>
+
+<main>
+  <header>
+    <span class="pre">صدقة جارية واستغفار</span>
+    <h1>عطيات جاد التايب</h1>
+    <p class="sub">ستّي الغالية، رحمها الله</p>
+    <p class="verse">اللهم اغفر لها وارحمها وعافها واعف عنها، وأكرم نزلها ووسّع مدخلها</p>
+  </header>
+
+  <section aria-labelledby="t-istighfar">
+    <h2 id="t-istighfar">استغفر لها</h2>
+    <p class="lead">اختر صيغة واضغط على الدائرة. كل ضغطة استغفار يصلها بإذن الله.</p>
+    <div class="dial">
+      <div class="tabs" role="group" aria-label="صيغة الاستغفار">
+        <button class="tab" type="button" data-i="0" aria-pressed="true">أستغفر الله</button>
+        <button class="tab" type="button" data-i="1" aria-pressed="false">اللهم اغفر لها</button>
+        <button class="tab" type="button" data-i="2" aria-pressed="false">اللهم ارحمها</button>
+      </div>
+      <p class="phrase" id="phrase" aria-live="polite"></p>
+      <div class="ring">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="track" cx="50" cy="50" r="46"/>
+          <circle class="prog" id="prog" cx="50" cy="50" r="46"/>
+        </svg>
+        <button class="tap" id="tap" type="button" aria-label="اضغط للاستغفار">
+          <span class="n" id="cur">٠</span>
+          <span class="l">من ١٠٠</span>
+        </button>
+      </div>
+      <div class="stats">
+        <span>الإجمالي على هذا الجهاز: <b id="total">٠</b></span>
+        <span>مرات إتمام المئة: <b id="rounds">٠</b></span>
+      </div>
+      <button class="reset" id="reset" type="button">ابدأ العد من جديد</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-quran">
+    <h2 id="t-quran">ورد القرآن عنها</h2>
+    <p class="lead">اختر سورة واقرأها من المصحف، ثم اضغط «قرأتها» لتنتقل لما بعدها. ثواب القراءة لعطيات جاد التايب.</p>
+    <div class="qcur">
+      <span class="kind">السورة الحالية</span>
+      <h3 id="qName"></h3>
+      <p id="qMeta"></p>
+      <div class="qact">
+        <a class="btn" id="qLink" href="https://quran.com/1" target="_blank" rel="noopener">افتح السورة للقراءة</a>
+        <button class="btn fill" id="qDone" type="button">قرأتها، السورة التالية</button>
+      </div>
+    </div>
+    <h3 class="sub2">مقترحة الآن</h3>
+    <div class="qsug" id="qSug"></div>
+    <h3 class="sub2">كل السور</h3>
+    <p id="qProg"></p>
+    <div class="chips" id="surahs"></div>
+  </section>
+
+  <section aria-labelledby="t-dua">
+    <h2 id="t-dua">أدعية للمتوفاة</h2>
+    <p class="lead">أدعية ثابتة في السنة، يمكنك نسخ أي منها وإرسالها لأهلها.</p>
+    <ul class="list" id="duas"></ul>
+  </section>
+
+  <section aria-labelledby="t-sada">
+    <h2 id="t-sada">الصدقة الجارية</h2>
+    <p class="hadith">إذا مات الإنسان انقطع عمله إلا من ثلاث: صدقة جارية، أو علم ينتفع به، أو ولد صالح يدعو له.</p>
+    <p class="lead">أفكار يمكن لأي أحد أن يشارك بها عن روحها، ولو بمبلغ صغير:</p>
+    <div class="sada">
+      <div><h3>سقيا الماء</h3><p>مساهمة في حفر بئر أو تركيب برادة ماء في مسجد أو مدرسة.</p></div>
+      <div><h3>مصحف يُقرأ فيه</h3><p>إهداء مصحف أو أكثر لمسجد أو لمن يحتاجه، وكل قراءة فيه أجر.</p></div>
+      <div><h3>كفالة يتيم</h3><p>اشتراك شهري عبر جمعية موثوقة تعرفها وتثق بها.</p></div>
+      <div><h3>فرش وإنارة مسجد</h3><p>المساهمة في تجهيز مسجد أو صيانته.</p></div>
+      <div><h3>علم ينتفع به</h3><p>طباعة كتب نافعة، أو دعم طالب علم، أو نشر درس مفيد.</p></div>
+      <div><h3>غرس شجرة</h3><p>زرع شجرة مثمرة ينتفع بثمرها الناس والطير.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-wallet">
+    <h2 id="t-wallet">اقترح لي صدقة</h2>
+    <p class="lead">أعمال خير بسيطة تقدر تعملها بنفسك عن روحها اليوم، وبعضها بلا أي مال.</p>
+    <div class="idea">
+      <span class="kind" id="ideaKind"></span>
+      <p class="t" id="ideaText" aria-live="polite"></p>
+      <button class="more" id="ideaMore" type="button">اقترح فكرة تانية</button>
+    </div>
+  </section>
+
+  <footer>اللهم اجعل قبرها روضة من رياض الجنة، واجمعنا بها في الفردوس الأعلى</footer>
+</main>
+
+<script>
+(function(){
+  document.documentElement.setAttribute("dir","rtl");document.documentElement.setAttribute("lang","ar");
+  var phrases=["أستغفر الله العظيم وأتوب إليه","اللهم اغفر لعطيات جاد التايب","اللهم ارحم عطيات جاد التايب وعافها واعف عنها"];
+  var duas=[
+    "اللهم اغفر لها وارحمها وعافها واعف عنها، وأكرم نزلها ووسّع مدخلها، واغسلها بالماء والثلج والبرد.",
+    "اللهم أبدلها دارًا خيرًا من دارها، وأهلًا خيرًا من أهلها، وأدخلها الجنة.",
+    "اللهم ثبّتها عند السؤال، ونوّر لها في قبرها، وافسح لها فيه مدّ بصرها.",
+    "اللهم اجعل قبرها روضة من رياض الجنة، ولا تجعله حفرة من حفر النار.",
+    "اللهم آنس وحشتها، وارحم غربتها، وتجاوز عن سيئاتها، وضاعف حسناتها.",
+    "اللهم اجمعنا بها في جنات النعيم، مع النبيين والصديقين والشهداء والصالحين."
+  ];
+  var KEY="atyat-istighfar-v1";
+  var CIRC=2*Math.PI*46;
+  var st={total:0,cur:0,rounds:0,tab:0};
+  try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);if(p&&typeof p.total==="number")st=Object.assign(st,p);}}catch(e){}
+  function ar(n){try{return Number(n).toLocaleString("ar-EG");}catch(e){return String(n);}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}}
+  var prog=document.getElementById("prog"),cur=document.getElementById("cur"),
+      total=document.getElementById("total"),rounds=document.getElementById("rounds"),
+      phrase=document.getElementById("phrase");
+  prog.style.strokeDasharray=CIRC;
+  function render(){
+    cur.textContent=ar(st.cur);total.textContent=ar(st.total);rounds.textContent=ar(st.rounds);
+    prog.style.strokeDashoffset=CIRC*(1-st.cur/100);
+    phrase.textContent=phrases[st.tab];
+    document.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-pressed",String(Number(b.dataset.i)===st.tab));});
+  }
+  document.getElementById("tap").addEventListener("click",function(){
+    st.total++;st.cur++;
+    if(st.cur>=100){st.cur=0;st.rounds++;if(navigator.vibrate){try{navigator.vibrate(60);}catch(e){}}}
+    save();render();
+  });
+  document.querySelectorAll(".tab").forEach(function(b){
+    b.addEventListener("click",function(){st.tab=Number(b.dataset.i);save();render();});
+  });
+  var resetBtn=document.getElementById("reset"),armed=false,timer;
+  resetBtn.addEventListener("click",function(){
+    if(!armed){armed=true;resetBtn.textContent="اضغط مرة أخرى للتأكيد";timer=setTimeout(function(){armed=false;resetBtn.textContent="ابدأ العد من جديد";},3000);return;}
+    clearTimeout(timer);armed=false;resetBtn.textContent="ابدأ العد من جديد";
+    st={total:0,cur:0,rounds:0,tab:st.tab};save();render();
+  });
+  var ideas=[
+    ["بلا مال","اختم جزءًا من القرآن أو سورة الملك واجعل ثوابه لها."],
+    ["بلا مال","علّم طفلًا الفاتحة أو دعاءً قصيرًا، فكل ما يردده في ميزانها."],
+    ["بلا مال","صم يومًا عنها تطوعًا، أو تصدق بنية الصيام عنها."],
+    ["بلا مال","أصلح بين شخصين متخاصمين، فهي من أحب الأعمال إلى الله."],
+    ["بلا مال","ابتسم وساعد غريبًا في الطريق ونوِ الأجر لها."],
+    ["بلا مال","أرسل رابط هذا الموقع لثلاثة من أقاربها ليدعوا لها."],
+    ["بلا مال","صلِّ ركعتين نافلة وادعُ لها بعدهما في السجود."],
+    ["بمبلغ صغير","اسقِ الناس: ضع كولدير أو أزيار ماء أمام بيتك أو مسجد قريب."],
+    ["بمبلغ صغير","أطعم أسرة محتاجة وجبة، أو ساهم في شنطة رمضان قبل موعدها."],
+    ["بمبلغ صغير","ضع طعامًا وماءً للقطط والطيور في مكان آمن بجوار بيتك."],
+    ["بمبلغ صغير","اشترِ مصحفًا وضعه في مسجد الحي، فكل قارئ فيه لها أجر."],
+    ["بمبلغ صغير","ساهم في علاج مريض أو شراء دواء لمن لا يقدر."],
+    ["بمبلغ صغير","اشترِ كتابًا نافعًا وأهده لمن يستفيد منه."],
+    ["بمبلغ صغير","ازرع شجرة أو نبتة في حديقة أو شارع، وانوِ ثوابها لها."]
+  ];
+  var ik=document.getElementById("ideaKind"),it=document.getElementById("ideaText"),last=-1;
+  function nextIdea(){
+    var i;do{i=Math.floor(Math.random()*ideas.length);}while(i===last&&ideas.length>1);
+    last=i;ik.textContent=ideas[i][0];it.textContent=ideas[i][1];
+  }
+  document.getElementById("ideaMore").addEventListener("click",nextIdea);
+  nextIdea();
+  var S=[["الفاتحة",7],["البقرة",286],["آل عمران",200],["النساء",176],["المائدة",120],["الأنعام",165],["الأعراف",206],["الأنفال",75],["التوبة",129],["يونس",109],["هود",123],["يوسف",111],["الرعد",43],["إبراهيم",52],["الحجر",99],["النحل",128],["الإسراء",111],["الكهف",110],["مريم",98],["طه",135],["الأنبياء",112],["الحج",78],["المؤمنون",118],["النور",64],["الفرقان",77],["الشعراء",227],["النمل",93],["القصص",88],["العنكبوت",69],["الروم",60],["لقمان",34],["السجدة",30],["الأحزاب",73],["سبأ",54],["فاطر",45],["يس",83],["الصافات",182],["ص",88],["الزمر",75],["غافر",85],["فصلت",54],["الشورى",53],["الزخرف",89],["الدخان",59],["الجاثية",37],["الأحقاف",35],["محمد",38],["الفتح",29],["الحجرات",18],["ق",45],["الذاريات",60],["الطور",49],["النجم",62],["القمر",55],["الرحمن",78],["الواقعة",96],["الحديد",29],["المجادلة",22],["الحشر",24],["الممتحنة",13],["الصف",14],["الجمعة",11],["المنافقون",11],["التغابن",18],["الطلاق",12],["التحريم",12],["الملك",30],["القلم",52],["الحاقة",52],["المعارج",44],["نوح",28],["الجن",28],["المزمل",20],["المدثر",56],["القيامة",40],["الإنسان",31],["المرسلات",50],["النبأ",40],["النازعات",46],["عبس",42],["التكوير",29],["الانفطار",19],["المطففين",36],["الانشقاق",25],["البروج",22],["الطارق",17],["الأعلى",19],["الغاشية",26],["الفجر",30],["البلد",20],["الشمس",15],["الليل",21],["الضحى",11],["الشرح",8],["التين",8],["العلق",19],["القدر",5],["البينة",8],["الزلزلة",8],["العاديات",11],["القارعة",11],["التكاثر",8],["العصر",3],["الهمزة",9],["الفيل",5],["قريش",4],["الماعون",7],["الكوثر",3],["الكافرون",6],["النصر",3],["المسد",5],["الإخلاص",4],["الفلق",5],["الناس",6]];
+  var QK="atyat-quran-v1";
+  var qs={done:[],cur:1,khatmas:0};
+  try{var qr=localStorage.getItem(QK);if(qr){var qp=JSON.parse(qr);if(qp&&Array.isArray(qp.done)){qs.done=qp.done;qs.cur=qp.cur||1;qs.khatmas=qp.khatmas||0;}}}catch(e){}
+  function qsave(){try{localStorage.setItem(QK,JSON.stringify(qs));}catch(e){}}
+  var chipsEl=document.getElementById("surahs"),chipEls=[];
+  S.forEach(function(s,i){
+    var n=i+1,b=document.createElement("button");
+    b.type="button";b.className="chip";b.id="chip-"+n;
+    b.innerHTML="<span></span><small></small>";
+    b.firstChild.textContent=s[0];b.lastChild.textContent=ar(n);
+    b.addEventListener("click",function(){qs.cur=n;qsave();renderQ();});
+    chipsEl.appendChild(b);chipEls.push(b);
+  });
+  function renderQ(){
+    var c=qs.cur,s=S[c-1];
+    document.getElementById("qName").textContent="سورة "+s[0];
+    document.getElementById("qMeta").textContent="رقمها "+ar(c)+" في المصحف، وآياتها "+ar(s[1]);
+    document.getElementById("qLink").href="https://quran.com/"+c;
+    var dn=qs.done;
+    chipEls.forEach(function(b,i){
+      var n=i+1;
+      b.classList.toggle("done",dn.indexOf(n)>-1);
+      b.setAttribute("aria-pressed",String(n===c));
+    });
+    document.getElementById("qProg").textContent="قرأت "+ar(dn.length)+" من ١١٤ سورة في هذه الختمة"+(qs.khatmas?"، وأتممت "+ar(qs.khatmas)+" ختمة":"");
+  }
+  document.getElementById("qDone").addEventListener("click",function(){
+    var c=qs.cur;
+    if(qs.done.indexOf(c)<0)qs.done.push(c);
+    var nx=0;
+    for(var k=1;k<=114;k++){var m=((c-1+k)%114)+1;if(qs.done.indexOf(m)<0){nx=m;break;}}
+    if(!nx){qs.khatmas++;qs.done=[];nx=1;}
+    qs.cur=nx;qsave();renderQ();
+  });
+  (function(){
+    var d=new Date(),day=d.getDay(),h=d.getHours(),out=[];
+    if(day===5||(day===4&&h>=17))out.push([18,"يُستحب قراءتها يوم الجمعة، وجاء في فضلها نور بين الجمعتين."]);
+    if(h>=17||h<5)out.push([67,"تُقرأ كل ليلة، وجاء أنها تشفع لقارئها حتى يُغفر له."]);
+    if(h>=5&&h<12)out.push([36,"يحرص كثيرون على قراءتها عن موتاهم."]);
+    out.push([112,"تعدل ثلث القرآن، وتُقرأ مع المعوذتين صباحًا ومساءً."]);
+    out.push([1,"أعظم سورة، ويُهدى ثوابها للمتوفى."]);
+    out.push([2,"ورد يومي لمن أراد الأجر الكثير، ولو آيات منها."]);
+    var el=document.getElementById("qSug");
+    out.slice(0,3).forEach(function(x){
+      var box=document.createElement("div"),t=document.createElement("b"),r=document.createElement("span"),bt=document.createElement("button");
+      t.textContent="سورة "+S[x[0]-1][0];r.textContent=x[1];
+      bt.type="button";bt.className="btn";bt.id="sug-"+x[0];bt.textContent="اختر هذه السورة";
+      bt.addEventListener("click",function(){qs.cur=x[0];qsave();renderQ();});
+      box.appendChild(t);box.appendChild(r);box.appendChild(bt);el.appendChild(box);
+    });
+  })();
+  renderQ();
+  var ul=document.getElementById("duas");
+  duas.forEach(function(t,i){
+    var li=document.createElement("li");li.className="dua";
+    var p=document.createElement("p");p.textContent=t;
+    var b=document.createElement("button");b.type="button";b.className="copy";b.id="copy-"+i;b.textContent="نسخ الدعاء";
+    b.addEventListener("click",function(){
+      function ok(){b.textContent="تم النسخ";setTimeout(function(){b.textContent="نسخ الدعاء";},1800);}
+      function fallback(){
+        var r=document.createRange();r.selectNodeContents(p);var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+        b.textContent="حدد النص وانسخه";setTimeout(function(){b.textContent="نسخ الدعاء";},2200);
+      }
+      try{navigator.clipboard.writeText(t).then(ok,fallback);}catch(e){fallback();}
+    });
+    li.appendChild(p);li.appendChild(b);ul.appendChild(li);
+  });
+  render();
+})();
+</script>
+
+</body>
+</html>
